@@ -5,5 +5,8 @@
     "mobile": "index.html",
     "mvk": "index.html",
     "web": "index.html"
-  }
+  },
+  "http-protocol": "https",
+  "insecure": "0"
+
 }
