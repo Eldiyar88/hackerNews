@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Panel, PanelHeader, Group, Div, List, Cell,  Button } from '@vkontakte/vkui';
+import { Panel, PanelHeader, Group, Div, List, Cell,  Button, Link } from '@vkontakte/vkui';
 import PropTypes from 'prop-types';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 
@@ -14,7 +14,6 @@ export const Home = ({ id }) => {
     setIsLoading(true);
     try {
       const response = await axios.get('https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty');
-      console.log('------------->>>>', response);
       const newsIds = response.data.slice(-100);
 
       const fetchedNews = await Promise.all(newsIds.map(id =>
@@ -76,7 +75,9 @@ const handleNewsItemClick = (newsId) => {
         <List>
           {news.map((item, index) => (
             <Cell key={index}>
+              <Link href={item.url}>
               <div onClick={() => handleNewsItemClick(item.id)}>{index + 1}.  {item.title}  Рейтинг: {item.score} Автор: {item.by}  Дата публикации: {new Date(item.time * 1000).toLocaleString()}</div>
+              </Link>
             </Cell>
           ))}
           {isLoading && <Cell>Loading...</Cell>}
